@@ -67,10 +67,20 @@ This can cause authentication problems with 3rd party applications that are not 
   REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\LSASS.exe" /v AuditLevel /t REG_DWORD /d 0x8 /f
 ```
 
+### 6. Data Execution Prevention (DEP)
 
-### Windows Active Directory
+DEP is a nice feature which was introduced with XP SP2. There are 2 types of DEP Hardware-enforced and Software-enforced. Almost all new AMD and Intel processors supports Hardware-enforced DEP (no-execute page-protection (NX)/Execute Disable Bit (XD)). By default DEP is only enabled for essential windows  programs and services. I strongly recommend turning on DEP for all programs and services. 
+
+By default Hardware enabled DEP is OptIn which is limited to system spesific binaries. You can change it to "always on" with following command. But you may need to give exeptions for programs that are facing proplems.
+```sh
+  bcdedit.exe /set {current} nx AlwaysOn
+```
+Also you can do it manually from performance options > Data Execution Prevention.
+
+
+# Windows Active Directory
 ### GPP Exploitation Detection
 
-XML Permission Denied Checks
-	Place a new xml file in SYSVOL & set Everyone:Deny.
-	Audit Access Denied errors.
+XML Permission Denied Checks:
+-	Place a new xml file in SYSVOL & set Everyone:Deny.
+-	Audit Access Denied errors.
