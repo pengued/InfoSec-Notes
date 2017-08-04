@@ -68,7 +68,7 @@ This can cause authentication problems with 3rd party applications that are not 
 ```
 
 
-##Windows Active Directory
+### Windows Active Directory
 ### GPP Exploitation Detection
 
 XML Permission Denied Checks
