@@ -71,11 +71,12 @@ This can cause authentication problems with 3rd party applications that are not 
 
 DEP is a nice feature which was introduced with XP SP2. There are 2 types of DEP Hardware-enforced and Software-enforced. Almost all new AMD and Intel processors supports Hardware-enforced DEP (no-execute page-protection (NX)/Execute Disable Bit (XD)). By default DEP is only enabled for essential windows  programs and services. I strongly recommend turning on DEP for all programs and services. 
 
-By default Hardware enabled DEP is OptIn which is limited to system spesific binaries. You can change it to "always on" with following command. But you may need to give exeptions for programs that are facing proplems.
+By default Hardware enabled DEP is OptIn which is limited to system spesific binaries. You can change it to "always on" or "OptOut" with following command. But you may need to give exeptions for programs that are facing proplems.
 ```sh
-  bcdedit.exe /set {current} nx AlwaysOn
+  bcdedit.exe /set {current} nx OptOut
 ```
 Also you can do it manually from performance options > Data Execution Prevention.
+One of the main problem is you cant't give expection for 64bit processors. Because 64bit programs are already complied with NXCOMPAT flag set. But not all developers are aware of it. In that case you may need to DisableNX compatibility using Application Compatibility Toolkit(ACT) or Windows Assessment and Deployment Kit (ADK). Also can use "editbin /NXCOMPAT:NO" 
 
 
 # Windows Active Directory
