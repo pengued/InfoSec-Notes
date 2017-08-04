@@ -32,17 +32,17 @@ Upon an infection or exploitation this cause an attacker to make change on UAC w
 For this reason, UAC should be changed to highest degree (Always Notify) unless you are facing some problem with non-UAC supported applications.
 
 ```sh
-  REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 0x1 /f
-  REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0x2 /f
-  REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v PromptOnSecureDesktop /t REG_DWORD /d 0x1 /f
+  REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 0x1 /f
+  REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0x2 /f
+  REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v PromptOnSecureDesktop /t REG_DWORD /d 0x1 /f
 ```
 
 ### 3.SMB Disable Version 1
 There is version 2 and version 3 used in most new systems. Its better to disable SMB version 1 and never allow vulnerabilities like Eternalblue 
 
 ```sh
-  REG ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation" /v DependOnService /t REG_MULTI_SZ /d bowser\0mrxsmb20\0nsi /f
-  REG ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\mrxsmb10" /v Start /t REG_DWORD /d 0x0 /f
+  REG ADD "HKLM\SYSTEM\CurrentControlSet\Services\LanmanWorkstation" /v DependOnService /t REG_MULTI_SZ /d bowser\0mrxsmb20\0nsi /f
+  REG ADD "HKLM\SYSTEM\CurrentControlSet\services\mrxsmb10" /v Start /t REG_DWORD /d 0x0 /f
   REG ADD "HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" /v SMB1 /t REG_DWORD /d 0x0 /f
 ```
 
@@ -58,7 +58,7 @@ Everybody knows pass the hash type attacks. You can protect your systems on a le
 Additional protection for the Local Security Authority is required to prevent code injection that could compromise credentials and dump current system credentials (For example Mimikatz, Metasploit hashdump). Best to achieve this is to start LSASS.exe process as protected process. In that case only system protected processes can reach the lsass.exe.
 
 ```sh
-  REG ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa" /v RunAsPPL /t REG_DWORD /d 0x1 /f
+  REG ADD "HKLM\SYSTEM\CurrentControlSet\Control\Lsa" /v RunAsPPL /t REG_DWORD /d 0x1 /f
 ```
 
 This can cause authentication problems with 3rd party applications that are not Microsoft signed. In that case and also for further forensic investigation. You may want to enable auditing for lsass.exe.
